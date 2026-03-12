@@ -1,10 +1,9 @@
-import dynamic from 'next/dynamic'
+'use client'
+
+import { NextStudio } from 'next-sanity/studio'
 import sanityConfig from '../../../../sanity.config'
 
-const NextStudio = dynamic(
-  () => import('next-sanity/studio').then((mod) => mod.NextStudio),
-  { ssr: false }
-)
+export const dynamic = 'force-dynamic'
 
 export default function StudioPage() {
   return <NextStudio config={sanityConfig} />
