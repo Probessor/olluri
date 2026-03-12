@@ -8,22 +8,22 @@
 /* ---- Custom Properties ---- */
 :root {
   /* Colors */
-  --bg:            #F7F5F0;
+  --bg:            #F3F7F5;
   --white:         #FFFFFF;
-  --surface:       #EFEBE3;
-  --surface-2:     #E6E0D5;
-  --primary:       #1E3A4C;
-  --primary-light: #2D5470;
-  --teal:          #3BBFB2;
-  --teal-light:    #E6F7F6;
-  --teal-mid:      #B2E8E4;
-  --warm:          #D4784A;
-  --warm-light:    #FBF0EB;
-  --text:          #1A2332;
-  --text-mid:      #4A5568;
-  --text-muted:    #8896A4;
-  --border:        #D8D3C9;
-  --border-light:  #EDEAE4;
+  --surface:       #E8F0EC;
+  --surface-2:     #DDEAE3;
+  --primary:       #123524;
+  --primary-light: #1B5035;
+  --teal:          #2B9E6E;
+  --teal-light:    #E4F5EE;
+  --teal-mid:      #A4DABC;
+  --warm:          #C4842A;
+  --warm-light:    #FBF3E6;
+  --text:          #0F1E14;
+  --text-mid:      #3D5447;
+  --text-muted:    #7A9688;
+  --border:        #C8D8CE;
+  --border-light:  #E2EDE7;
 
   /* Spacing */
   --gap-xs: 8px;
@@ -38,9 +38,9 @@
   --radius-lg: 28px;
 
   /* Shadows */
-  --shadow-sm: 0 1px 4px rgba(30, 58, 76, 0.07);
-  --shadow:    0 4px 20px rgba(30, 58, 76, 0.10);
-  --shadow-lg: 0 12px 40px rgba(30, 58, 76, 0.13);
+  --shadow-sm: 0 1px 4px rgba(18, 53, 36, 0.07);
+  --shadow:    0 4px 20px rgba(18, 53, 36, 0.10);
+  --shadow-lg: 0 12px 40px rgba(18, 53, 36, 0.13);
 
   /* Layout */
   --max-w:      1200px;
@@ -149,7 +149,7 @@ p { color: var(--text-mid); max-width: 68ch; }
   color: var(--white);
 }
 .btn-teal:hover {
-  background: #2fa99d;
+  background: #22825a;
   transform: translateY(-2px);
   box-shadow: var(--shadow);
 }
@@ -159,7 +159,7 @@ p { color: var(--text-mid); max-width: 68ch; }
   color: var(--white);
 }
 .btn-warm:hover {
-  background: #be6840;
+  background: #a86e22;
   transform: translateY(-2px);
   box-shadow: var(--shadow);
 }
@@ -170,7 +170,7 @@ p { color: var(--text-mid); max-width: 68ch; }
   top: 0; left: 0; right: 0;
   height: var(--nav-height);
   z-index: 100;
-  background: rgba(247, 245, 240, 0.92);
+  background: rgba(243, 247, 245, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-light);
@@ -336,7 +336,7 @@ p { color: var(--text-mid); max-width: 68ch; }
 .tag-warm {
   background: var(--warm-light);
   color: var(--warm);
-  border-color: #F0C4AD;
+  border-color: #E8C98A;
 }
 
 .tag-surface {
@@ -431,7 +431,7 @@ p { color: var(--text-mid); max-width: 68ch; }
 .form-group textarea:focus,
 .form-group select:focus {
   border-color: var(--teal);
-  box-shadow: 0 0 0 3px rgba(59, 191, 178, 0.12);
+  box-shadow: 0 0 0 3px rgba(43, 158, 110, 0.14);
 }
 
 .form-group textarea { resize: vertical; min-height: 140px; }
@@ -453,9 +453,9 @@ p { color: var(--text-mid); max-width: 68ch; }
 /* Aurora gradient (decorative) */
 .aurora-bg {
   background:
-    radial-gradient(ellipse 60% 50% at 20% 40%, rgba(59, 191, 178, 0.12) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 60% at 80% 20%, rgba(30, 58, 76, 0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at 60% 80%, rgba(212, 120, 74, 0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 20% 40%, rgba(43, 158, 110, 0.13) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 80% 20%, rgba(18, 53, 36, 0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 60% 80%, rgba(196, 132, 42, 0.07) 0%, transparent 70%),
     var(--bg);
 }
 
