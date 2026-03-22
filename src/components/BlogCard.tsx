@@ -10,8 +10,11 @@ export interface PostData {
   category?: string
   publishedAt?: string
   readTime?: string
-  mainImage?: { asset: object; alt?: string }
+  mainImage?: { asset: object; alt?: string; hotspot?: { x: number; y: number } }
+  startupLogo?: { asset: object; alt?: string; hotspot?: { x: number; y: number } }
   tags?: string[]
+  interviewed?: string[]
+  startupWebsite?: string
 }
 
 function formatDate(iso?: string) {

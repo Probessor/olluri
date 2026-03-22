@@ -16,8 +16,14 @@ export const latestPostsQuery = groq`
 
 export const postBySlugQuery = groq`
   *[_type == "post" && slug.current == $slug][0] {
-    _id, title, slug, excerpt, body, category, publishedAt, readTime, tags,
-    mainImage { asset->, alt, hotspot, crop }
+    _id, title, slug, excerpt, category, publishedAt, readTime, tags,
+    startupName, interviewed, intervieweeTitles, startupWebsite,
+    mainImage { asset->, alt, hotspot, crop },
+    startupLogo { asset->, alt },
+    body[] {
+      ...,
+      _type == "image" => { ..., asset-> }
+    }
   }
 `
 
@@ -42,6 +48,12 @@ export const hubsQuery = groq`
 export const eventsQuery = groq`
   *[_type == "event"] | order(date asc) {
     _id, title, date, location, description
+  }
+`
+
+export const productsQuery = groq`
+  *[_type == "product"] | order(order asc) {
+    _id, title, description, price, icon, link, order
   }
 `
 

@@ -1,28 +1,44 @@
 'use client'
+import { useState } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
+
+const REASONS = [
+  'Jeg har spørsmål',
+  'Jeg har noe å dele',
+  'Jeg ønsker å samarbeide',
+  'Annet',
+]
 
 export default function ContactPage() {
   const { t } = useLanguage()
   const c = t.contact
+  const [reason, setReason] = useState('')
   return (
     <>
       <div className="page-hero">
         <div className="container">
           <span className="label">{c.label}</span>
           <h1>{c.h1}</h1>
-          <p className="lead" style={{ marginTop: 12 }}>
+          <p className="lead" style={{ marginTop: 12, marginBottom: 0 }}>
             {c.lead}
           </p>
         </div>
       </div>
 
-      <section className="section" style={{ background: 'var(--white)' }}>
+      <section className="section" style={{ background: 'var(--white)', paddingTop: 'var(--gap-md)' }}>
         <div className="container">
           <div className="grid-2" style={{ alignItems: 'start' }}>
             <div>
               <h2>{c.sendMessage}</h2>
               <div className="divider" />
               <form style={{ marginTop: 'var(--gap-md)' }}>
+                <div className="form-group">
+                  <label htmlFor="reason">Hva gjelder det?</label>
+                  <select id="reason" name="reason" value={reason} onChange={e => setReason(e.target.value)}>
+                    <option value="">Velg et alternativ</option>
+                    {REASONS.map(r => <option key={r} value={r}>{r}</option>)}
+                  </select>
+                </div>
                 <div className="form-group">
                   <label htmlFor="name">{c.yourName}</label>
                   <input id="name" name="name" type="text" placeholder="Ola Nordmann" />
@@ -55,7 +71,7 @@ export default function ContactPage() {
                 {[
                   { icon: '✉️', label: 'Email', value: 'bess@entreprenerd.no', href: 'mailto:bess@entreprenerd.no' },
                   { icon: '💼', label: 'LinkedIn', value: 'linkedin.com/in/besart-olluri/', href: '#' },
-                  { icon: '🐦', label: 'Twitter / X', value: '@bessandersen', href: '#' },
+                  { icon: '📸', label: 'Instagram', value: '@_sidelengs', href: 'https://instagram.com/_sidelengs' },
                   { icon: '📍', label: c.location, value: 'Oslo, Norway', href: undefined },
                 ].map(item => (
                   <div key={item.label} style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>

@@ -5,8 +5,8 @@ import Footer from '@/components/Footer'
 import { LanguageProvider } from '@/context/LanguageContext'
 
 export const metadata: Metadata = {
-  title: 'Bess — Nordic Startup Scout',
-  description: "Bess connects Norway's most promising founders with the world's best investors. Startup scout, ecosystem connector, and your guide to Norwegian innovation.",
+  title: 'Sidelengs — Norske Startups',
+  description: "Sidelengs dekker menneskene og selskapene som former det norske oppstartslandskapet — hvem de er, hva de bygger, og hvorfor det betyr noe.",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

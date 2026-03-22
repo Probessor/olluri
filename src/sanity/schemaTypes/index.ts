@@ -4,5 +4,6 @@ import service from './service'
 import hub from './hub'
 import event from './event'
 import siteSettings from './siteSettings'
+import product from './product'
 
-export const schemaTypes = [post, startup, service, hub, event, siteSettings]
+export const schemaTypes = [post, startup, service, hub, event, siteSettings, product]
