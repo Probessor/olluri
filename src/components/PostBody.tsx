@@ -22,7 +22,8 @@ const components = {
   },
 }
 
-export default function PostBody({ value }: { value: unknown[] }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function PostBody({ value }: { value: any[] }) {
   return (
     <div className="post-body" style={{ lineHeight: 1.8 }}>
       <PortableText value={value} components={components} />
