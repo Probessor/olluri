@@ -251,6 +251,7 @@ const translations = {
       bio1: "Sidelengs exists because the best stories from Norwegian business rarely come from press releases. They come from coffee meetings, failed pivots, and the strange spark that eventually becomes a company.",
       bio2: "Behind Sidelengs is Bess Olluri — with a background from Innovation Norway, early-stage advising, and years of writing about the Nordic venture scene. That gives a perspective grounded in what it actually feels like to build something in Norway.",
       bio3: "We cover who Norwegian founders are, what they make, and what drives them — without hype, without PR filters. Just honest stories from the inside.",
+      bio4: '',
       values: [
         { icon: '🏔️', title: 'Norwegian perspective', text: 'Deep roots in the Scandinavian business culture' },
         { icon: '📖', title: 'Stories first', text: 'We let the people — not the numbers — take centre stage' },
