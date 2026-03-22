@@ -30,7 +30,7 @@ export default function AboutContent() {
             </div>
             <div>
               <span className="label">{a.myStory}</span>
-              <h2>{a.h2Line1}<br />{a.h2Line2}</h2>
+              <h2>{a.h2Line1}</h2>
               <div className="divider" />
               <p className="lead">{a.bio1}</p>
               <p style={{ marginTop: 12 }}>{a.bio2}</p>
