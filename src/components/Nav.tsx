@@ -33,11 +33,11 @@ export default function Nav() {
           <li key="blog">
             <Link href="/blog" className={pathname === '/blog' ? 'active' : ''}>{t.nav.insights}</Link>
           </li>
-<li key="podcast">
-            <Link href="/podcast" className={pathname === '/podcast' ? 'active' : ''}>{t.nav.podcast}</Link>
-          </li>
           <li key="about">
             <Link href="/about" className={pathname === '/about' ? 'active' : ''}>{t.nav.about}</Link>
+          </li>
+          <li key="events">
+            <Link href="/events" className={pathname === '/events' ? 'active' : ''}>{t.nav.events}</Link>
           </li>
         </ul>
         <div className="nav-cta">

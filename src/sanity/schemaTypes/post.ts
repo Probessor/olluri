@@ -17,6 +17,7 @@ export default defineType({
           { title: 'Investor', value: 'Investor' },
           { title: 'Community', value: 'Community' },
           { title: 'News', value: 'News' },
+          { title: 'Learn', value: 'Learn' },
           { title: 'Other', value: 'Other' },
           { title: 'Blog', value: 'Blog' },
         ],
