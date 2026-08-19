@@ -32,6 +32,7 @@ function toEventDoc(ev) {
     title: ev.name,
     date: ev.start.date,
     location,
+    city: location,
     source: 'StartupLab',
     ...(link ? { link } : {}),
   }

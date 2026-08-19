@@ -7,7 +7,8 @@ export default defineType({
   fields: [
     defineField({ name: 'title', title: 'Title', type: 'string', validation: r => r.required() }),
     defineField({ name: 'date', title: 'Date', type: 'date' }),
-    defineField({ name: 'location', title: 'Location', type: 'string' }),
+    defineField({ name: 'location', title: 'Location', type: 'string', description: 'Specific venue name, shown on the event card' }),
+    defineField({ name: 'city', title: 'City', type: 'string', description: 'Used for city filtering on the events page' }),
     defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
     defineField({ name: 'link', title: 'Event link', type: 'url' }),
     defineField({

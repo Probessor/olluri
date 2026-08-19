@@ -56,6 +56,7 @@ function toEventDoc($, el, dayDateMap) {
     title,
     date,
     ...(location ? { location } : {}),
+    city: 'Oslo', // Oslo Innovation Week is held entirely in Oslo
     link,
     source: 'OIW',
   }

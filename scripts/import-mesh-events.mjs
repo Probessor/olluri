@@ -42,7 +42,8 @@ function decodeHtmlEntities(str) {
 function toEventDoc(ev, cityFallback) {
   const title = decodeHtmlEntities(ev.title).trim()
   const date = ev.start_date.slice(0, 10)
-  const location = ev.venue?.city || ev.venue?.venue || cityFallback
+  const location = ev.venue?.venue || ev.venue?.city || cityFallback
+  const city = ev.venue?.city || cityFallback
 
   return {
     _id: `mesh-${ev.id}`,
@@ -50,6 +51,7 @@ function toEventDoc(ev, cityFallback) {
     title,
     date,
     location,
+    city,
     link: ev.url,
     source: 'Mesh',
   }
