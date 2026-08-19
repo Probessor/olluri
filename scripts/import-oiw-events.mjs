@@ -40,14 +40,13 @@ function buildDayDateMap($, html) {
 function toEventDoc($, el, dayDateMap) {
   const $el = $(el)
   const href = $el.find('.event_item_link').attr('href')
-  const rawTitle = $el.find('.event_title').first().text().trim()
+  const title = $el.find('.event_title').first().text().trim()
   const day = $el.find('[fs-list-field="day"]').first().text().trim()
   const location = $el.find('[fs-list-field="location"]').first().text().trim()
   const date = dayDateMap[day]
 
-  if (!rawTitle || !date || !href) return null
+  if (!title || !date || !href) return null
 
-  const title = /^oiw/i.test(rawTitle) ? rawTitle : `OIW: ${rawTitle}`
   const link = new URL(href, 'https://www.oiw.no').toString()
   const slug = href.replace(/^\/event\//, '').replace(/\/$/, '')
 
@@ -58,6 +57,7 @@ function toEventDoc($, el, dayDateMap) {
     date,
     ...(location ? { location } : {}),
     link,
+    source: 'OIW',
   }
 }
 

@@ -26,14 +26,13 @@ function toEventDoc(ev) {
     : undefined
   const location = taggedLocation || 'Oslo'
 
-  const title = /^startuplab/i.test(ev.name) ? ev.name : `StartupLab: ${ev.name}`
-
   return {
     _id: `startuplab-${ev.id}`,
     _type: 'event',
-    title,
+    title: ev.name,
     date: ev.start.date,
     location,
+    source: 'StartupLab',
     ...(link ? { link } : {}),
   }
 }

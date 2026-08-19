@@ -12,6 +12,7 @@ type EventData = {
   location?: string
   description?: string
   link?: string
+  source?: string
 }
 
 function formatDate(iso?: string) {
@@ -59,6 +60,9 @@ export default function EventsPage() {
                     {...(ev.link ? { href: ev.link, target: '_blank', rel: 'noopener noreferrer' } : {})}
                   >
                     <div className="card-body">
+                      {ev.source && (
+                        <span className="tag" style={{ marginBottom: 8 }}>{ev.source}</span>
+                      )}
                       <h3>{ev.title}</h3>
                       <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: 4 }}>
                         {[formatDate(ev.date), ev.location].filter(Boolean).join(' · ')}

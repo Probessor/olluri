@@ -47,7 +47,7 @@ export const hubsQuery = groq`
 
 export const eventsQuery = groq`
   *[_type == "event"] | order(date asc) {
-    _id, title, date, location, description, link
+    _id, title, date, location, description, link, source
   }
 `
 
