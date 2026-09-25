@@ -31,7 +31,7 @@ export default function Home() {
         <div className="container">
           <span className="label">{h.label}</span>
           <h1 style={{ marginTop: 12 }}>
-            {h.h1Line1}<br />{h.h1Line2}
+            {h.h1Line1}
           </h1>
           <p className="lead" style={{ marginTop: 16, maxWidth: 560 }}>{h.lead}</p>
         </div>

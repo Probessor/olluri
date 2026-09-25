@@ -11,7 +11,7 @@ export default function AboutContent() {
       <div className="page-hero">
         <div className="container">
           <span className="label">{a.label}</span>
-          <h1>{a.h1Line1}<br />{a.h1Line2}</h1>
+          <h1>{a.h1Line1}</h1>
           <p className="lead" style={{ marginTop: 12 }}>
             {a.lead}
           </p>
