@@ -8,7 +8,7 @@ const translations = {
       investors: 'For Investorer',
       about: 'Om',
       insights: 'Innsikt',
-      events: 'Arrangementer',
+      events: 'Events',
       podcast: 'Podcast',
       contact: 'Kontakt',
       readInsights: 'Les innsikt',
@@ -63,15 +63,15 @@ const translations = {
     },
     about: {
       label: 'Om Sidelengs',
-      h1Line1: 'Et skjevt blikk på',
-      h1Line2: 'norsk gründerkultur',
-      lead: 'Fra gründer til universitetslektor til redaktør — Bess Olluri har tilbrakt årevis innebygd i det norske oppstartsmiljøet.',
+      h1Line1: 'Før startups skyter opp i lufta, eller dundrer i bakken, så kryper de ofte sidelengs.',
+
+      lead: 'Les om dem her.',
       myStory: 'Bakgrunn',
       h2Line1: 'Tett på de som bygger',
       bio1: 'Sidelengs ble til fordi de beste historiene fra norsk næringsliv sjelden kommer fra pressemeldinger. De kommer fra kaffemøter, mislykkede pivots og den rare gnisten som omsider blir til et selskap.',
-      bio2: 'Bak Sidelengs står jeg, Bess Olluri. De siste ti årene har jeg gründet, bygd, knekt, mentorert, veiledet og utdannet både startups og gründere. Sidelengs er i første omgang tenkt som et sted mellom nyhetssted, blogg og hjemmeside, hvor jeg kan skrive om kule caser, og gi startups enda en mulighet til å dele litt om seg selv.',
-      bio3: 'Nå til dags veileder jeg startups med finansieringsstrategi, søknadsskriving, eller outreach.',
-      bio4: 'Før startups skyter opp i lufta, eller dundrer i bakken, så kryper de ofte sidelengs. Les om dem her.',
+      bio2: 'Bak Sidelengs står jeg, Bess. De siste ti årene har jeg gründet, bygd, knekt, mentorert, veiledet og utdannet både startups og gründere. Sidelengs er i første omgang tenkt som noe mellom et nyhetssted, blogg og hjemmeside, hvor jeg kan skrive om kule caser, og gi startups enda en mulighet til å dele litt om seg selv.',
+      bio3: 'Nå til dags veileder jeg startups med finansieringsstrategi, forretningsutvikling og søknadsskriving. ',
+      bio4: 'Det skjer mye kult i det norske oppstartsmiljøet, jeg møter mange utrolige folk, og tenkte å dele litt om dem her.',
 
       values: [
         { icon: '🏔️', title: 'I miljøet', text: 'Alt av innhold skrives fra innsiden av miljøet' },
@@ -136,8 +136,8 @@ const translations = {
       ctaBtn: 'Ta kontakt',
     },
     events: {
-      label: 'Arrangementer',
-      h1: 'Arrangementer',
+      label: 'Events',
+      h1: 'Events',
       lead: 'En oversikt over arrangementer i det norske oppstartsmiljøet — arrangert av andre.',
       linkLabel: 'Se arrangement',
       empty: 'Ingen arrangementer å vise akkurat nå.',

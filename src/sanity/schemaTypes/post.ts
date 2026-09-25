@@ -50,7 +50,27 @@ export default defineType({
         defineField({ name: 'alt', title: 'Alt text', type: 'string' }),
       ],
     }),
-    defineField({ name: 'body', title: 'Body', type: 'array', of: [{ type: 'block' }, { type: 'image', options: { hotspot: true } }] }),
+    defineField({
+      name: 'body',
+      title: 'Body',
+      type: 'array',
+      of: [
+        { type: 'block' },
+        { type: 'image', options: { hotspot: true } },
+        {
+          type: 'object',
+          name: 'youtube',
+          title: 'YouTube Video',
+          fields: [
+            defineField({ name: 'url', title: 'YouTube URL', type: 'url', validation: r => r.required() }),
+          ],
+          preview: {
+            select: { url: 'url' },
+            prepare: ({ url }) => ({ title: 'YouTube Video', subtitle: url }),
+          },
+        },
+      ],
+    }),
   ],
   preview: { select: { title: 'title', subtitle: 'publishedAt', media: 'mainImage' } },
 })

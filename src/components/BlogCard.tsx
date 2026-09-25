@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { urlForImage } from '@/sanity/lib/image'
+import { urlForImage, getCroppedAspectRatio } from '@/sanity/lib/image'
 
 export interface PostData {
   _id: string
@@ -10,7 +10,12 @@ export interface PostData {
   category?: string
   publishedAt?: string
   readTime?: string
-  mainImage?: { asset: object; alt?: string; hotspot?: { x: number; y: number } }
+  mainImage?: {
+    asset: { metadata?: { dimensions?: { width?: number; height?: number } } }
+    alt?: string
+    hotspot?: { x: number; y: number }
+    crop?: { top?: number; bottom?: number; left?: number; right?: number } | null
+  }
   startupLogo?: { asset: object; alt?: string; hotspot?: { x: number; y: number } }
   tags?: string[]
   interviewed?: string[]
@@ -23,11 +28,12 @@ function formatDate(iso?: string) {
 }
 
 export function BlogCardFeatured({ post }: { post: PostData }) {
-  const imgUrl = post.mainImage ? urlForImage(post.mainImage).width(800).height(400).url() : null
+  const imgUrl = post.mainImage ? urlForImage(post.mainImage).width(800).url() : null
+  const aspectRatio = getCroppedAspectRatio(post.mainImage) ?? 2
 
   return (
     <Link href={`/blog/${post.slug.current}`} className="blog-card-featured">
-      <div className="blog-featured-img" style={{ minHeight: 300, overflow: 'hidden', position: 'relative', background: 'linear-gradient(135deg, var(--primary) 0%, var(--teal) 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '4rem' }}>
+      <div className="blog-featured-img" style={{ aspectRatio, overflow: 'hidden', position: 'relative', background: 'linear-gradient(135deg, var(--primary) 0%, var(--teal) 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '4rem' }}>
         {imgUrl
           ? <Image src={imgUrl} alt={post.mainImage?.alt || post.title} fill style={{ objectFit: 'cover' }} />
           : '🇳🇴'
@@ -52,12 +58,13 @@ export function BlogCardFeatured({ post }: { post: PostData }) {
 }
 
 export function BlogCardSmall({ post, gradient }: { post: PostData; gradient?: string }) {
-  const imgUrl = post.mainImage ? urlForImage(post.mainImage).width(600).height(320).url() : null
+  const imgUrl = post.mainImage ? urlForImage(post.mainImage).width(600).url() : null
   const bg = gradient || 'linear-gradient(135deg, var(--surface), var(--surface-2))'
+  const aspectRatio = getCroppedAspectRatio(post.mainImage) ?? 1.875
 
   return (
     <Link href={`/blog/${post.slug.current}`} className="blog-card-sm">
-      <div className="blog-card-sm-img" style={{ height: 160, overflow: 'hidden', position: 'relative', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2.5rem' }}>
+      <div className="blog-card-sm-img" style={{ aspectRatio, overflow: 'hidden', position: 'relative', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2.5rem' }}>
         {imgUrl
           ? <Image src={imgUrl} alt={post.mainImage?.alt || post.title} fill style={{ objectFit: 'cover' }} />
           : '💡'

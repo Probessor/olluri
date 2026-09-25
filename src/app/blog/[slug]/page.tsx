@@ -47,8 +47,6 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     : null
 
   const mainImageUrl = post.mainImage ? urlForImage(post.mainImage).width(1600).url() : null
-  const hotspot = post.mainImage?.hotspot
-  const objectPosition = hotspot ? `${hotspot.x * 100}% ${hotspot.y * 100}%` : 'center'
 
   return (
     <div style={{ background: 'var(--white)' }}>
@@ -65,7 +63,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             src={mainImageUrl}
             alt={post.mainImage?.alt || post.title}
             fill
-            style={{ objectFit: 'cover', objectPosition }}
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
             priority
           />
         )}
@@ -87,9 +85,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         </div>
       </div>
 
-      <section className="section" style={{ background: 'var(--white)', paddingTop: 0, marginTop: -8 }}>
+      <section className="section" style={{ background: 'var(--white)', paddingTop: 0, marginTop: 0 }}>
         <div className="container" style={{ maxWidth: 760 }}>
-          <div style={{ marginBottom: 'var(--gap-md)', marginTop: 0 }}>
+          <div style={{ marginBottom: 'var(--gap-md)', marginTop: 'var(--gap-sm)' }}>
             {post.mainImage?.alt && (
               <p style={{ margin: '0 0 6px', fontSize: '0.8rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>{post.mainImage.alt}</p>
             )}

@@ -1,5 +1,6 @@
 'use client'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useLanguage } from '@/context/LanguageContext'
 
 type EventData = {
@@ -7,11 +8,21 @@ type EventData = {
   title: string
   date?: string
   location?: string
+  city?: string
+  description?: string
   link?: string
+  source?: string
 }
+
+function dateKey(d: Date) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
+const MAX_VISIBLE = 3
 
 export default function EventCalendar({ events }: { events: EventData[] }) {
   const { lang } = useLanguage()
+  const router = useRouter()
   const [month, setMonth] = useState(() => {
     const d = new Date()
     return new Date(d.getFullYear(), d.getMonth(), 1)
@@ -20,87 +31,108 @@ export default function EventCalendar({ events }: { events: EventData[] }) {
   const locale = lang === 'no' ? 'nb-NO' : 'en-GB'
   const year = month.getFullYear()
   const monthIdx = month.getMonth()
-  const daysInMonth = new Date(year, monthIdx + 1, 0).getDate()
-  const startOffset = (new Date(year, monthIdx, 1).getDay() + 6) % 7 // Monday-first
 
-  const eventsByDay = new Map<number, EventData[]>()
-  events.forEach(ev => {
-    if (!ev.link || !ev.date) return
-    const d = new Date(ev.date)
-    if (d.getFullYear() === year && d.getMonth() === monthIdx) {
-      const list = eventsByDay.get(d.getDate()) ?? []
+  const eventsByDay = useMemo(() => {
+    const map = new Map<string, EventData[]>()
+    events.forEach(ev => {
+      if (!ev.date) return
+      const list = map.get(dateKey(new Date(ev.date))) ?? []
       list.push(ev)
-      eventsByDay.set(d.getDate(), list)
+      map.set(dateKey(new Date(ev.date)), list)
+    })
+    return map
+  }, [events])
+
+  const monthLabel = month.toLocaleDateString(locale, { month: 'long', year: 'numeric' })
+  const weekdayFmt = new Intl.DateTimeFormat(locale, { weekday: 'short' })
+  const weekdays = Array.from({ length: 7 }, (_, i) => weekdayFmt.format(new Date(2024, 0, i + 1)))
+
+  const startOffset = (new Date(year, monthIdx, 1).getDay() + 6) % 7 // Monday-first
+  const daysInMonth = new Date(year, monthIdx + 1, 0).getDate()
+  const totalCells = Math.ceil((startOffset + daysInMonth) / 7) * 7
+
+  const today = new Date()
+
+  const cells = Array.from({ length: totalCells }, (_, i) => {
+    const date = new Date(year, monthIdx, i - startOffset + 1)
+    return {
+      date,
+      inMonth: date.getMonth() === monthIdx,
+      isToday: date.toDateString() === today.toDateString(),
     }
   })
 
-  const monthLabel = month.toLocaleDateString(locale, { month: 'long', year: 'numeric' })
-  const weekdayFmt = new Intl.DateTimeFormat(locale, { weekday: 'narrow' })
-  const weekdays = Array.from({ length: 7 }, (_, i) => weekdayFmt.format(new Date(2024, 0, i + 1)))
-  const cells: (number | null)[] = [
-    ...Array(startOffset).fill(null),
-    ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
-  ]
+  const goToday = () => setMonth(new Date(today.getFullYear(), today.getMonth(), 1))
 
   return (
-    <div className="card" style={{ width: 280, flexShrink: 0, overflow: 'visible' }}>
-      <div className="card-body">
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+    <div className="event-calendar">
+      <div className="event-calendar-header">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <button
             onClick={() => setMonth(m => new Date(m.getFullYear(), m.getMonth() - 1, 1))}
             aria-label="Previous month"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', color: 'var(--text-mid)', lineHeight: 1 }}
+            className="event-calendar-nav"
           >‹</button>
-          <span style={{ fontWeight: 700, fontSize: '0.85rem', textTransform: 'capitalize' }}>{monthLabel}</span>
+          <h2 style={{ textTransform: 'capitalize', fontSize: '1.4rem', minWidth: 220, textAlign: 'center' }}>{monthLabel}</h2>
           <button
             onClick={() => setMonth(m => new Date(m.getFullYear(), m.getMonth() + 1, 1))}
             aria-label="Next month"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', color: 'var(--text-mid)', lineHeight: 1 }}
+            className="event-calendar-nav"
           >›</button>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 4, textAlign: 'center' }}>
-          {weekdays.map((w, i) => (
-            <span key={`w${i}`} style={{ fontSize: '0.65rem', color: 'var(--text-muted)', fontWeight: 700 }}>{w}</span>
-          ))}
-          {cells.map((day, i) => {
-            if (day === null) return <span key={i} />
-            const dayEvents = eventsByDay.get(day)
-            if (!dayEvents?.length) {
-              return (
-                <span key={i} style={{ fontSize: '0.78rem', padding: '6px 0', color: 'var(--text-mid)' }}>{day}</span>
-              )
-            }
-            return (
-              <div key={i} className="calendar-day-wrap">
-                <a
-                  href={dayEvents[0].link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    fontSize: '0.78rem',
-                    padding: '6px 0',
-                    borderRadius: '50%',
-                    background: 'var(--teal)',
-                    color: '#fff',
-                    fontWeight: 700,
-                    textDecoration: 'none',
-                    display: 'block',
-                  }}
-                >
-                  {day}
-                </a>
-                <div className="calendar-tooltip">
-                  {dayEvents.map(ev => (
-                    <a key={ev._id} href={ev.link} target="_blank" rel="noopener noreferrer" className="calendar-tooltip-item">
-                      <span className="calendar-tooltip-title">{ev.title}</span>
-                      {ev.location && <span className="calendar-tooltip-location">{ev.location}</span>}
-                    </a>
-                  ))}
+        <button onClick={goToday} className="event-calendar-today">
+          {lang === 'no' ? 'I dag' : 'Today'}
+        </button>
+      </div>
+
+      <div className="event-calendar-weekdays">
+        {weekdays.map((w, i) => <span key={i}>{w}</span>)}
+      </div>
+
+      <div className="event-calendar-grid">
+        {cells.map(({ date, inMonth, isToday }) => {
+          const key = dateKey(date)
+          const dayEvents = eventsByDay.get(key) ?? []
+          const visible = dayEvents.slice(0, MAX_VISIBLE)
+          const hidden = dayEvents.length - visible.length
+
+          const hasEvents = dayEvents.length > 0
+          const goToDay = () => { if (hasEvents) router.push(`/events/${key}`) }
+
+          return (
+            <div
+              key={key}
+              className={`event-calendar-cell${inMonth ? '' : ' is-outside'}${isToday ? ' is-today' : ''}${hasEvents ? ' is-clickable' : ''}`}
+              role={hasEvents ? 'button' : undefined}
+              tabIndex={hasEvents ? 0 : undefined}
+              onClick={goToDay}
+              onKeyDown={hasEvents ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToDay() } } : undefined}
+            >
+              <span className="event-calendar-daynum">{date.getDate()}</span>
+              {hasEvents && (
+                <div className="event-calendar-events">
+                  {visible.map(ev => {
+                    const Tag = ev.link ? 'a' : 'div'
+                    return (
+                      <Tag
+                        key={ev._id}
+                        className="event-chip"
+                        title={[ev.title, ev.location].filter(Boolean).join(' · ')}
+                        onClick={(e) => e.stopPropagation()}
+                        {...(ev.link ? { href: ev.link, target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      >
+                        {ev.title}
+                      </Tag>
+                    )
+                  })}
+                  {hidden > 0 && (
+                    <span className="event-chip-more">+{hidden} {lang === 'no' ? 'til' : 'more'}</span>
+                  )}
                 </div>
-              </div>
-            )
-          })}
-        </div>
+              )}
+            </div>
+          )
+        })}
       </div>
     </div>
   )

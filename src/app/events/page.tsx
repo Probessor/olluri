@@ -16,11 +16,6 @@ type EventData = {
   source?: string
 }
 
-function formatDate(iso?: string) {
-  if (!iso) return null
-  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
-}
-
 function PillFilter({ options, active, onSelect }: { options: string[]; active: string | null; onSelect: (v: string | null) => void }) {
   if (options.length < 2) return null
   return (
@@ -78,14 +73,11 @@ export default function EventsPage() {
 
   return (
     <>
-      <div className="page-hero" style={{ paddingTop: 'calc(var(--nav-height) + var(--gap-md))', paddingBottom: 'var(--gap-md)' }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 'var(--gap-md)', flexWrap: 'wrap' }}>
-          <div>
-            <span className="label">{e.label}</span>
-            <h1 style={{ marginTop: 12 }}>{e.h1}</h1>
-            <p className="lead" style={{ marginTop: 16, maxWidth: 560 }}>{e.lead}</p>
-          </div>
-          <EventCalendar events={events} />
+      <div className="page-hero">
+        <div className="container">
+          <span className="label">{e.label}</span>
+          <h1>{e.h1}</h1>
+          <p className="lead" style={{ marginTop: 12 }}>{e.lead}</p>
         </div>
       </div>
 
@@ -119,32 +111,7 @@ export default function EventsPage() {
                   Ingen arrangementer matcher filteret.
                 </p>
               ) : (
-                <div className="grid-2">
-                  {filtered.map(ev => {
-                    const Tag = ev.link ? 'a' : 'div'
-                    return (
-                      <Tag
-                        key={ev._id}
-                        className="card"
-                        style={{ display: 'block', color: 'inherit', textDecoration: 'none' }}
-                        {...(ev.link ? { href: ev.link, target: '_blank', rel: 'noopener noreferrer' } : {})}
-                      >
-                        <div className="card-body">
-                          {ev.source && (
-                            <span className="tag" style={{ marginBottom: 8 }}>{ev.source}</span>
-                          )}
-                          <h3>{ev.title}</h3>
-                          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: 4 }}>
-                            {[formatDate(ev.date), ev.location].filter(Boolean).join(' · ')}
-                          </p>
-                          {ev.description && (
-                            <p style={{ marginTop: 12 }}>{ev.description}</p>
-                          )}
-                        </div>
-                      </Tag>
-                    )
-                  })}
-                </div>
+                <EventCalendar events={filtered} />
               )}
             </>
           )}

@@ -51,6 +51,12 @@ export const eventsQuery = groq`
   }
 `
 
+export const eventsByDateQuery = groq`
+  *[_type == "event" && date == $date] | order(title asc) {
+    _id, title, date, location, city, description, link, source
+  }
+`
+
 export const productsQuery = groq`
   *[_type == "product"] | order(order asc) {
     _id, title, description, price, icon, link, order
