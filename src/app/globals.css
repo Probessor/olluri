@@ -383,9 +383,11 @@ p { color: var(--text-mid); max-width: 68ch; }
   border-color: var(--border);
 }
 
+.tag-teal { background: var(--teal-light); color: var(--teal); border-color: var(--teal-mid); }
 .tag-lime { background: rgba(163,230,53,0.22); color: #4d7c0f; border-color: #a3e635; }
 .tag-yellow { background: rgba(250,204,21,0.22); color: #a16207; border-color: #facc15; }
 .tag-red-light { background: rgba(248,113,113,0.18); color: #b91c1c; border-color: #f87171; }
+.tag-black { background: #18181b; color: #fff; border-color: #18181b; }
 
 .tag-selected { box-shadow: 0 0 0 1.5px currentColor; }
 
@@ -521,6 +523,8 @@ a.event-chip-mesh:hover { background: #facc15; color: #422006; }
 a.event-chip-startuplab:hover { background: #f87171; color: #fff; }
 .event-chip-deadline { background: #7f1d1d; color: #fff; font-weight: 700; }
 a.event-chip-deadline:hover { background: #5c1414; color: #fff; }
+.event-chip-black { background: #18181b; color: #fff; }
+a.event-chip-black:hover { background: #000; color: #fff; }
 .event-chip-more { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); padding-left: 6px; }
 
 @media (max-width: 640px) {

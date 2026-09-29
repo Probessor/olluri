@@ -26,6 +26,7 @@ const SOURCE_CLASSES: Record<string, string> = {
   OIW: 'event-chip-oiw',
   Mesh: 'event-chip-mesh',
   StartupLab: 'event-chip-startuplab',
+  '6AM': 'event-chip-black',
 }
 
 export default function EventCalendar({ events }: { events: EventData[] }) {

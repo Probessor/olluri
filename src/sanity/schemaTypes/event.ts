@@ -20,6 +20,8 @@ export default defineType({
           { title: 'StartupLab', value: 'StartupLab' },
           { title: 'OIW', value: 'OIW' },
           { title: 'Mesh', value: 'Mesh' },
+          { title: 'Snartup', value: 'Snartup' },
+          { title: '6AM', value: '6AM' },
         ],
       },
     }),

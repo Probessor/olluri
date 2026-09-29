@@ -20,6 +20,8 @@ const SOURCE_TAG_CLASSES: Record<string, string> = {
   OIW: 'tag-lime',
   Mesh: 'tag-yellow',
   StartupLab: 'tag-red-light',
+  Snartup: 'tag-teal',
+  '6AM': 'tag-black',
 }
 
 function PillFilter({ options, active, onSelect, colorMap }: { options: string[]; active: string | null; onSelect: (v: string | null) => void; colorMap?: Record<string, string> }) {
