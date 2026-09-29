@@ -3,6 +3,7 @@ export const dynamic = 'force-dynamic'
 import Link from 'next/link'
 import { client } from '@/sanity/lib/client'
 import { eventsByDateQuery } from '@/sanity/lib/queries'
+import { getNationalDeadlinesForDate } from '@/lib/deadlines'
 
 type EventData = {
   _id: string
@@ -13,6 +14,7 @@ type EventData = {
   description?: string
   link?: string
   source?: string
+  isDeadline?: boolean
 }
 
 function formatDate(dateStr: string) {
@@ -32,6 +34,7 @@ export default async function EventDayPage({ params }: { params: Promise<{ date:
     } catch (err) {
       console.error('[events/[date] page] fetch error:', err)
     }
+    events = [...getNationalDeadlinesForDate(date), ...events]
   }
 
   return (
@@ -64,7 +67,9 @@ export default async function EventDayPage({ params }: { params: Promise<{ date:
                     {...(ev.link ? { href: ev.link, target: '_blank', rel: 'noopener noreferrer' } : {})}
                   >
                     <div className="card-body">
-                      {ev.source && (
+                      {ev.isDeadline ? (
+                        <span className="tag event-chip-deadline" style={{ marginBottom: 8, border: 'none' }}>Nasjonal frist</span>
+                      ) : ev.source && (
                         <span className="tag" style={{ marginBottom: 8 }}>{ev.source}</span>
                       )}
                       <h3>{ev.title}</h3>

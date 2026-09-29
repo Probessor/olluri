@@ -14,6 +14,7 @@ const translations = {
       readInsights: 'Les innsikt',
       workWithMe: 'Ta kontakt',
       products: 'Produkter',
+      resources: 'Ressurser',
     },
     footer: {
       tagline: 'Historiene bak Norges mest spennende oppstartsselskaper',
@@ -135,10 +136,19 @@ const translations = {
       ctaP: 'Ta kontakt for en uforpliktende samtale om hvordan jeg kan hjelpe deg med å finne de beste mulighetene.',
       ctaBtn: 'Ta kontakt',
     },
+    resources: {
+      label: 'Ressurser',
+      h1: 'Ressurser for gründere',
+      lead: 'En kuratert liste med verktøy og ressurser som er nyttige når du driver startup. Jeg er ikke sponset av noen av dem(enda).',
+      ctaLabel: 'Mangler noe?',
+      ctaH2: 'Kjenner du en ressurs som burde vært her?',
+      ctaP: 'Tips meg, så vurderer jeg å legge den til listen.',
+      ctaBtn: 'Ta kontakt',
+    },
     events: {
       label: 'Events',
       h1: 'Events',
-      lead: 'En oversikt over arrangementer i det norske oppstartsmiljøet — arrangert av andre.',
+      lead: 'En samling av events i startup/innovasjonsmiljøet',
       linkLabel: 'Se arrangement',
       empty: 'Ingen arrangementer å vise akkurat nå.',
     },
@@ -200,6 +210,7 @@ const translations = {
       readInsights: 'Read Insights',
       workWithMe: 'Get Featured',
       products: 'Products',
+      resources: 'Resources',
     },
     footer: {
       tagline: "The stories behind Norway's most interesting startups.",
@@ -320,6 +331,15 @@ const translations = {
       ctaLabel: "Let's talk",
       ctaH2: 'Ready to invest in Norwegian innovation?',
       ctaP: "Get in touch for a no-obligation conversation about how I can help you find the best opportunities.",
+      ctaBtn: 'Get in Touch',
+    },
+    resources: {
+      label: 'Resources',
+      h1: 'Resources for founders',
+      lead: 'A curated list of tools and resources that are useful when building a Norwegian startup.',
+      ctaLabel: 'Missing something?',
+      ctaH2: 'Know a resource that should be here?',
+      ctaP: "Send me a tip and I'll consider adding it to the list.",
       ctaBtn: 'Get in Touch',
     },
     events: {

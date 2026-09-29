@@ -290,7 +290,7 @@ p { color: var(--text-mid); max-width: 68ch; }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1.5fr 1.5fr;
+  grid-template-columns: 2fr 1fr 1fr;
   gap: var(--gap-md);
   padding-bottom: var(--gap-md);
   border-bottom: 1px solid rgba(255,255,255,0.12);
@@ -382,6 +382,12 @@ p { color: var(--text-mid); max-width: 68ch; }
   color: var(--text-mid);
   border-color: var(--border);
 }
+
+.tag-lime { background: rgba(163,230,53,0.22); color: #4d7c0f; border-color: #a3e635; }
+.tag-yellow { background: rgba(250,204,21,0.22); color: #a16207; border-color: #facc15; }
+.tag-red-light { background: rgba(248,113,113,0.18); color: #b91c1c; border-color: #f87171; }
+
+.tag-selected { box-shadow: 0 0 0 1.5px currentColor; }
 
 /* ---- Cards ---- */
 .card {
@@ -506,6 +512,15 @@ p { color: var(--text-mid); max-width: 68ch; }
   transition: background 0.15s ease, color 0.15s ease;
 }
 a.event-chip:hover { background: var(--teal); color: #fff; }
+
+.event-chip-oiw { background: rgba(163,230,53,0.22); color: #4d7c0f; }
+a.event-chip-oiw:hover { background: #84cc16; color: #fff; }
+.event-chip-mesh { background: rgba(250,204,21,0.22); color: #a16207; }
+a.event-chip-mesh:hover { background: #facc15; color: #422006; }
+.event-chip-startuplab { background: rgba(248,113,113,0.18); color: #b91c1c; }
+a.event-chip-startuplab:hover { background: #f87171; color: #fff; }
+.event-chip-deadline { background: #7f1d1d; color: #fff; font-weight: 700; }
+a.event-chip-deadline:hover { background: #5c1414; color: #fff; }
 .event-chip-more { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); padding-left: 6px; }
 
 @media (max-width: 640px) {

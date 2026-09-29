@@ -39,6 +39,12 @@ export const servicesQuery = groq`
   }
 `
 
+export const resourcesQuery = groq`
+  *[_type == "resource"] | order(category asc, order asc) {
+    _id, title, description, url, icon, category, order
+  }
+`
+
 export const hubsQuery = groq`
   *[_type == "hub"] | order(_createdAt asc) {
     _id, name, city, focus, description, icon

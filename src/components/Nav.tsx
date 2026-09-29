@@ -36,6 +36,9 @@ export default function Nav() {
           <li key="events">
             <Link href="/events" className={pathname === '/events' ? 'active' : ''}>{t.nav.events}</Link>
           </li>
+          <li key="resources">
+            <Link href="/resources" className={pathname === '/resources' ? 'active' : ''}>{t.nav.resources}</Link>
+          </li>
           <li key="about">
             <Link href="/about" className={pathname === '/about' ? 'active' : ''}>{t.nav.about}</Link>
           </li>

@@ -2,6 +2,7 @@
 import { useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useLanguage } from '@/context/LanguageContext'
+import { getNationalDeadlines } from '@/lib/deadlines'
 
 type EventData = {
   _id: string
@@ -12,6 +13,7 @@ type EventData = {
   description?: string
   link?: string
   source?: string
+  isDeadline?: boolean
 }
 
 function dateKey(d: Date) {
@@ -19,6 +21,12 @@ function dateKey(d: Date) {
 }
 
 const MAX_VISIBLE = 3
+
+const SOURCE_CLASSES: Record<string, string> = {
+  OIW: 'event-chip-oiw',
+  Mesh: 'event-chip-mesh',
+  StartupLab: 'event-chip-startuplab',
+}
 
 export default function EventCalendar({ events }: { events: EventData[] }) {
   const { lang } = useLanguage()
@@ -34,14 +42,21 @@ export default function EventCalendar({ events }: { events: EventData[] }) {
 
   const eventsByDay = useMemo(() => {
     const map = new Map<string, EventData[]>()
+    const deadlines = [year - 1, year, year + 1].flatMap(getNationalDeadlines)
+    deadlines.forEach(d => {
+      const list = map.get(d.date) ?? []
+      list.push(d)
+      map.set(d.date, list)
+    })
     events.forEach(ev => {
       if (!ev.date) return
-      const list = map.get(dateKey(new Date(ev.date))) ?? []
+      const key = dateKey(new Date(ev.date))
+      const list = map.get(key) ?? []
       list.push(ev)
-      map.set(dateKey(new Date(ev.date)), list)
+      map.set(key, list)
     })
     return map
-  }, [events])
+  }, [events, year])
 
   const monthLabel = month.toLocaleDateString(locale, { month: 'long', year: 'numeric' })
   const weekdayFmt = new Intl.DateTimeFormat(locale, { weekday: 'short' })
@@ -113,10 +128,11 @@ export default function EventCalendar({ events }: { events: EventData[] }) {
                 <div className="event-calendar-events">
                   {visible.map(ev => {
                     const Tag = ev.link ? 'a' : 'div'
+                    const sourceClass = ev.isDeadline ? 'event-chip-deadline' : (ev.source ? SOURCE_CLASSES[ev.source] : undefined)
                     return (
                       <Tag
                         key={ev._id}
-                        className="event-chip"
+                        className={`event-chip${sourceClass ? ` ${sourceClass}` : ''}`}
                         title={[ev.title, ev.location].filter(Boolean).join(' · ')}
                         onClick={(e) => e.stopPropagation()}
                         {...(ev.link ? { href: ev.link, target: '_blank', rel: 'noopener noreferrer' } : {})}

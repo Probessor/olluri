@@ -16,7 +16,13 @@ type EventData = {
   source?: string
 }
 
-function PillFilter({ options, active, onSelect }: { options: string[]; active: string | null; onSelect: (v: string | null) => void }) {
+const SOURCE_TAG_CLASSES: Record<string, string> = {
+  OIW: 'tag-lime',
+  Mesh: 'tag-yellow',
+  StartupLab: 'tag-red-light',
+}
+
+function PillFilter({ options, active, onSelect, colorMap }: { options: string[]; active: string | null; onSelect: (v: string | null) => void; colorMap?: Record<string, string> }) {
   if (options.length < 2) return null
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -27,16 +33,23 @@ function PillFilter({ options, active, onSelect }: { options: string[]; active: 
       >
         Alle
       </button>
-      {options.map(opt => (
-        <button
-          key={opt}
-          onClick={() => onSelect(active === opt ? null : opt)}
-          className={active === opt ? 'tag' : 'tag tag-surface'}
-          style={{ cursor: 'pointer', border: 'none', fontFamily: 'inherit' }}
-        >
-          {opt}
-        </button>
-      ))}
+      {options.map(opt => {
+        const isActive = active === opt
+        const colorClass = colorMap?.[opt]
+        const className = colorClass
+          ? `tag ${colorClass}${isActive ? ' tag-selected' : ''}`
+          : (isActive ? 'tag' : 'tag tag-surface')
+        return (
+          <button
+            key={opt}
+            onClick={() => onSelect(isActive ? null : opt)}
+            className={className}
+            style={{ cursor: 'pointer', border: 'none', fontFamily: 'inherit' }}
+          >
+            {opt}
+          </button>
+        )
+      })}
     </div>
   )
 }
@@ -45,7 +58,7 @@ export default function EventsPage() {
   const { t } = useLanguage()
   const e = t.events
   const [events, setEvents] = useState<EventData[]>([])
-  const [activeCity, setActiveCity] = useState<string | null>(null)
+  const [activeCity, setActiveCity] = useState<string | null>('Oslo')
   const [activeSource, setActiveSource] = useState<string | null>(null)
 
   useEffect(() => {
@@ -73,48 +86,30 @@ export default function EventsPage() {
 
   return (
     <>
-      <div className="page-hero">
+      <section className="section" style={{ paddingTop: 'calc(var(--nav-height) + var(--gap-md))' }}>
         <div className="container">
-          <span className="label">{e.label}</span>
           <h1>{e.h1}</h1>
-          <p className="lead" style={{ marginTop: 12 }}>{e.lead}</p>
-        </div>
-      </div>
+          <p className="lead" style={{ marginTop: 8, marginBottom: 'var(--gap-md)' }}>{e.lead}</p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, alignItems: 'center', marginBottom: 'var(--gap-md)' }}>
+            <PillFilter options={cities} active={activeCity} onSelect={setActiveCity} />
+            <PillFilter options={sources} active={activeSource} onSelect={setActiveSource} colorMap={SOURCE_TAG_CLASSES} />
+            {isFiltering && (
+              <button
+                onClick={() => { setActiveCity(null); setActiveSource(null) }}
+                style={{
+                  padding: '8px 14px', borderRadius: 'var(--radius-sm)',
+                  border: '1.5px solid var(--border)',
+                  background: 'none', color: 'var(--text-muted)',
+                  fontSize: '0.85rem', fontFamily: 'inherit', cursor: 'pointer',
+                  fontWeight: 500,
+                }}
+              >
+                ✕ Nullstill filter
+              </button>
+            )}
+          </div>
 
-      <section className="section">
-        <div className="container">
-          {events.length === 0 ? (
-            <p style={{ color: 'var(--text-muted)' }}>{e.empty}</p>
-          ) : (
-            <>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, alignItems: 'center', marginBottom: 'var(--gap-md)' }}>
-                <PillFilter options={cities} active={activeCity} onSelect={setActiveCity} />
-                <PillFilter options={sources} active={activeSource} onSelect={setActiveSource} />
-                {isFiltering && (
-                  <button
-                    onClick={() => { setActiveCity(null); setActiveSource(null) }}
-                    style={{
-                      padding: '8px 14px', borderRadius: 'var(--radius-sm)',
-                      border: '1.5px solid var(--border)',
-                      background: 'none', color: 'var(--text-muted)',
-                      fontSize: '0.85rem', fontFamily: 'inherit', cursor: 'pointer',
-                      fontWeight: 500,
-                    }}
-                  >
-                    ✕ Nullstill filter
-                  </button>
-                )}
-              </div>
-
-              {filtered.length === 0 ? (
-                <p style={{ color: 'var(--text-muted)', padding: 'var(--gap-lg) 0', textAlign: 'center' }}>
-                  Ingen arrangementer matcher filteret.
-                </p>
-              ) : (
-                <EventCalendar events={filtered} />
-              )}
-            </>
-          )}
+          <EventCalendar events={filtered} />
         </div>
       </section>
     </>

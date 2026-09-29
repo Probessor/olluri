@@ -69,7 +69,7 @@ export default function ContactPage() {
               <div className="divider" />
               <div style={{ marginTop: 'var(--gap-md)', display: 'flex', flexDirection: 'column', gap: 'var(--gap-md)' }}>
                 {[
-                  { icon: '✉️', label: 'Email', value: 'bess@entreprenerd.no', href: 'mailto:bess@entreprenerd.no' },
+                  { icon: '✉️', label: 'Email', value: 'bess@sidelengs.com', href: 'mailto:bess@sidelengs.com' },
                   { icon: '💼', label: 'LinkedIn', value: 'linkedin.com/in/besart-olluri/', href: '#' },
                   { icon: '📸', label: 'Instagram', value: '@_sidelengs', href: 'https://instagram.com/_sidelengs' },
                   { icon: '📍', label: c.location, value: 'Oslo, Norway', href: undefined },
