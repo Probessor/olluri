@@ -2,6 +2,7 @@ import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './src/sanity/schemaTypes'
+import { structure } from './src/sanity/structure'
 
 export default defineConfig({
   name: 'bess-nordic-scout',
@@ -14,7 +15,7 @@ export default defineConfig({
   basePath: '/studio',
 
   plugins: [
-    structureTool(),
+    structureTool({ structure }),
     visionTool(),
   ],
 

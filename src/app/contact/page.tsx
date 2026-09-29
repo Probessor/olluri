@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 
 const REASONS = [
@@ -9,10 +9,35 @@ const REASONS = [
   'Annet',
 ]
 
+type Status = 'idle' | 'submitting' | 'success' | 'error'
+
 export default function ContactPage() {
   const { t } = useLanguage()
   const c = t.contact
   const [reason, setReason] = useState('')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [role, setRole] = useState('')
+  const [message, setMessage] = useState('')
+  const [status, setStatus] = useState<Status>('idle')
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    setStatus('submitting')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, reason, role, message }),
+      })
+      if (!res.ok) throw new Error('Request failed')
+      setStatus('success')
+      setName(''); setEmail(''); setReason(''); setRole(''); setMessage('')
+    } catch {
+      setStatus('error')
+    }
+  }
+
   return (
     <>
       <div className="page-hero">
@@ -31,7 +56,7 @@ export default function ContactPage() {
             <div>
               <h2>{c.sendMessage}</h2>
               <div className="divider" />
-              <form style={{ marginTop: 'var(--gap-md)' }}>
+              <form style={{ marginTop: 'var(--gap-md)' }} onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label htmlFor="reason">Hva gjelder det?</label>
                   <select id="reason" name="reason" value={reason} onChange={e => setReason(e.target.value)}>
@@ -41,26 +66,32 @@ export default function ContactPage() {
                 </div>
                 <div className="form-group">
                   <label htmlFor="name">{c.yourName}</label>
-                  <input id="name" name="name" type="text" placeholder="Ola Nordmann" />
+                  <input id="name" name="name" type="text" placeholder="Ola Nordmann" value={name} onChange={e => setName(e.target.value)} required />
                 </div>
                 <div className="form-group">
                   <label htmlFor="email">{c.emailAddress}</label>
-                  <input id="email" name="email" type="email" placeholder="ola@startup.no" />
+                  <input id="email" name="email" type="email" placeholder="ola@startup.no" value={email} onChange={e => setEmail(e.target.value)} required />
                 </div>
                 <div className="form-group">
                   <label htmlFor="role">{c.iAmA}</label>
-                  <select id="role" name="role">
+                  <select id="role" name="role" value={role} onChange={e => setRole(e.target.value)}>
                     <option value="">{c.selectRole}</option>
                     {c.roles.map(r => <option key={r}>{r}</option>)}
                   </select>
                 </div>
                 <div className="form-group">
                   <label htmlFor="message">{c.message}</label>
-                  <textarea id="message" name="message" placeholder={c.messagePlaceholder} />
+                  <textarea id="message" name="message" placeholder={c.messagePlaceholder} value={message} onChange={e => setMessage(e.target.value)} required />
                 </div>
-                <button type="submit" className="btn btn-primary w-full" style={{ justifyContent: 'center' }}>
-                  {c.sendBtn}
+                <button type="submit" className="btn btn-primary w-full" style={{ justifyContent: 'center' }} disabled={status === 'submitting'}>
+                  {status === 'submitting' ? c.sending : c.sendBtn}
                 </button>
+                {status === 'success' && (
+                  <p style={{ marginTop: 12, color: 'var(--teal)', fontSize: '0.9rem', fontWeight: 500 }}>{c.successMsg}</p>
+                )}
+                {status === 'error' && (
+                  <p style={{ marginTop: 12, color: '#b91c1c', fontSize: '0.9rem', fontWeight: 500 }}>{c.errorMsg}</p>
+                )}
               </form>
             </div>
 
