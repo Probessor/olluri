@@ -8,6 +8,14 @@ function getYouTubeId(url: string) {
   return match?.[1] ?? null
 }
 
+function parseLinkedInEmbed(code: string) {
+  const srcMatch = code.match(/src="([^"]+)"/)
+  const heightMatch = code.match(/height="(\d+)"/)
+  const src = srcMatch?.[1]
+  if (!src || !src.startsWith('https://www.linkedin.com/embed/')) return null
+  return { src, height: heightMatch ? Number(heightMatch[1]) : 570 }
+}
+
 const components = {
   types: {
     image: ({ value }: { value: { asset: object; alt?: string } }) => {
@@ -35,6 +43,22 @@ const components = {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
             style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+          />
+        </div>
+      )
+    },
+    linkedinEmbed: ({ value }: { value: { embedCode: string } }) => {
+      const parsed = parseLinkedInEmbed(value.embedCode)
+      if (!parsed) return null
+      return (
+        <div style={{ margin: '2rem 0', display: 'flex', justifyContent: 'center' }}>
+          <iframe
+            src={parsed.src}
+            height={parsed.height}
+            width={504}
+            style={{ maxWidth: '100%', border: 0, borderRadius: 8 }}
+            allowFullScreen
+            title="LinkedIn post"
           />
         </div>
       )

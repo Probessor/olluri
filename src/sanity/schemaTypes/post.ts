@@ -69,6 +69,25 @@ export default defineType({
             prepare: ({ url }) => ({ title: 'YouTube Video', subtitle: url }),
           },
         },
+        {
+          type: 'object',
+          name: 'linkedinEmbed',
+          title: 'LinkedIn Post',
+          fields: [
+            defineField({
+              name: 'embedCode',
+              title: 'Embed code',
+              type: 'text',
+              rows: 4,
+              description: 'On the LinkedIn post, click "⋯" → "Embed this post", then paste the full <iframe> code here.',
+              validation: r => r.required(),
+            }),
+          ],
+          preview: {
+            select: { embedCode: 'embedCode' },
+            prepare: ({ embedCode }) => ({ title: 'LinkedIn Post', subtitle: embedCode ? 'Embed set' : 'No embed code yet' }),
+          },
+        },
       ],
     }),
   ],
