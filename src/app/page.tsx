@@ -7,6 +7,8 @@ import { postsQuery } from '@/sanity/lib/queries'
 import { BlogCardSmall, type PostData } from '@/components/BlogCard'
 import { useBlogStats } from '@/lib/useBlogStats'
 
+const SHOW_SOCIAL = false
+
 export default function Home() {
   const { t } = useLanguage()
   const h = t.home
@@ -80,23 +82,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Social media */}
-      <section className="section-sm">
-        <div className="container">
-          <div className="section-header-row">
-            <div>
-              <span className="label">{h.socialLabel}</span>
-              <h2>{h.socialH2}</h2>
+      {/* Social media — temporarily hidden; flip SHOW_SOCIAL to bring it back */}
+      {SHOW_SOCIAL && (
+        <section className="section-sm">
+          <div className="container">
+            <div className="section-header-row">
+              <div>
+                <span className="label">{h.socialLabel}</span>
+                <h2>{h.socialH2}</h2>
+              </div>
+              <a href="#" className="btn btn-outline" style={{ gap: 8 }}>
+                <span>📸</span>{h.socialInstagram}
+              </a>
             </div>
-            <a href="#" className="btn btn-outline" style={{ gap: 8 }}>
-              <span>📸</span>{h.socialInstagram}
-            </a>
+            <div style={{ marginTop: 'var(--gap-md)', textAlign: 'center', padding: 'var(--gap-lg) 0' }}>
+              <p style={{ color: 'var(--text-muted)' }}>{h.socialEmpty}</p>
+            </div>
           </div>
-          <div style={{ marginTop: 'var(--gap-md)', textAlign: 'center', padding: 'var(--gap-lg) 0' }}>
-            <p style={{ color: 'var(--text-muted)' }}>{h.socialEmpty}</p>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Stats */}
       <section className="section">
