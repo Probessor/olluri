@@ -38,7 +38,7 @@ const translations = {
       stats: [
         { value: '120+', label: 'Startups omtalt' },
         { value: '60+', label: 'Gründere intervjuet' },
-        { value: '8+', label: 'År i miljøet' },
+        { value: '13', label: 'Arbeidsplasser lagd' },
       ],
       insightsLabel: 'Siste artikler',
       insightsH2: 'Ferske historier',
