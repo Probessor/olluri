@@ -16,7 +16,7 @@ export const latestPostsQuery = groq`
 
 export const postBySlugQuery = groq`
   *[_type == "post" && slug.current == $slug][0] {
-    _id, title, slug, excerpt, category, publishedAt, readTime, tags,
+    _id, title, slug, excerpt, category, publishedAt, readTime, tags, summaryPoints,
     startupName, interviewed, intervieweeTitles, startupWebsite,
     mainImage { asset->, alt, hotspot, crop },
     startupLogo { asset->, alt },

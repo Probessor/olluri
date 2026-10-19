@@ -30,6 +30,13 @@ export default defineType({
     defineField({ name: 'intervieweeTitles', title: 'Intervjuobjektenes titler (f.eks. CEO)', type: 'array', of: [{ type: 'string' }], options: { layout: 'tags' } }),
     defineField({ name: 'startupWebsite', title: 'Startup nettside', type: 'url' }),
     defineField({ name: 'excerpt', title: 'Excerpt', type: 'text', rows: 3 }),
+    defineField({
+      name: 'summaryPoints',
+      title: 'Kortversjon (bullet points)',
+      type: 'array',
+      of: [{ type: 'string' }],
+      description: 'Short bullet-point summary of the case, shown as a collapsible "Kortversjonen" box at the top of the post. Leave empty to hide it.',
+    }),
     defineField({ name: 'publishedAt', title: 'Published At', type: 'datetime' }),
     defineField({ name: 'readTime', title: 'Read Time (e.g. "5 min read")', type: 'string' }),
     defineField({

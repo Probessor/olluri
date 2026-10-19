@@ -8,6 +8,7 @@ import { postBySlugQuery, postsQuery } from '@/sanity/lib/queries'
 import { urlForImage } from '@/sanity/lib/image'
 import { FALLBACK_POSTS } from '@/lib/fallbackPosts'
 import PostBody from '@/components/PostBody'
+import SummaryBox from '@/components/SummaryBox'
 
 export async function generateStaticParams() {
   try {
@@ -103,6 +104,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               </div>
             )}
           </div>
+
+          <SummaryBox points={post.summaryPoints} />
 
           {post.body ? (
             <PostBody value={post.body} />

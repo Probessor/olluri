@@ -163,6 +163,9 @@ const translations = {
       ctaH2Line2: 'rett i innboksen?',
       ctaP: 'Få vårt ukentlige sammendrag av norske startup-historier, nye selskaper og folk du bør kjenne til.',
       subscribe: 'Abonner',
+      summaryTitle: 'Kortversjonen',
+      showMore: 'Vis mer',
+      showLess: 'Vis mindre',
     },
     products: {
       label: 'Produkter',
@@ -363,6 +366,9 @@ const translations = {
       ctaH2Line2: 'straight to your inbox?',
       ctaP: 'Get our weekly roundup of Norwegian startup stories, new companies, and people worth knowing.',
       subscribe: 'Subscribe',
+      summaryTitle: 'The short version',
+      showMore: 'Show more',
+      showLess: 'Show less',
     },
     products: {
       label: 'Products',
