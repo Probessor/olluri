@@ -14,6 +14,15 @@ export const latestPostsQuery = groq`
   }
 `
 
+// Distinct startup names and distinct interviewee names across all posts,
+// used to drive the "Startups omtalt" / "Gründere intervjuet" stats.
+export const blogStatsQuery = groq`
+  {
+    "startupCount": count(array::unique(*[_type == "post" && defined(startupName) && startupName != ""].startupName)),
+    "founderCount": count(array::unique(*[_type == "post" && defined(interviewed)].interviewed[]))
+  }
+`
+
 export const postBySlugQuery = groq`
   *[_type == "post" && slug.current == $slug][0] {
     _id, title, slug, excerpt, category, publishedAt, readTime, tags, summaryPoints,

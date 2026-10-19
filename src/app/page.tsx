@@ -5,12 +5,19 @@ import { useLanguage } from '@/context/LanguageContext'
 import { client } from '@/sanity/lib/client'
 import { postsQuery } from '@/sanity/lib/queries'
 import { BlogCardSmall, type PostData } from '@/components/BlogCard'
+import { useBlogStats } from '@/lib/useBlogStats'
 
 export default function Home() {
   const { t } = useLanguage()
   const h = t.home
   const [posts, setPosts] = useState<PostData[]>([])
   const trackRef = useRef<HTMLDivElement>(null)
+  const blogStats = useBlogStats()
+  const stats = h.stats.map((s, i) => {
+    if (i === 0 && blogStats) return { ...s, value: String(blogStats.startupCount) }
+    if (i === 1 && blogStats) return { ...s, value: String(blogStats.founderCount) }
+    return s
+  })
 
   const scroll = (dir: 'prev' | 'next') => {
     if (!trackRef.current) return
@@ -97,7 +104,7 @@ export default function Home() {
           <span className="label">{h.statsLabel}</span>
           <h2 style={{ marginTop: 8 }}>{h.statsH2}</h2>
           <div className="grid-3" style={{ marginTop: 'var(--gap-md)', maxWidth: 700, margin: 'var(--gap-md) auto 0' }}>
-            {h.stats.map(s => (
+            {stats.map(s => (
               <div key={s.label} style={{ textAlign: 'center' }}>
                 <h2 style={{ fontSize: '3rem', marginBottom: 4 }}>{s.value}</h2>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{s.label}</p>
