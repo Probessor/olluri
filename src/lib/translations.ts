@@ -34,7 +34,7 @@ const translations = {
       foundersText: 'Vi går tett på gründerne — bakgrunnen deres, motivasjonen og valgene de tar på veien.',
       investorsText: 'Fra klimateknologi til helsetech og kunstig intelligens — vi dekker hva norske startups faktisk holder på med.',
       statsLabel: 'I tall',
-      statsH2: 'Norsk innovasjon i perspektiv',
+      statsH2: 'Tall fra siden',
       stats: [
         { value: '120+', label: 'Startups omtalt' },
         { value: '60+', label: 'Gründere intervjuet' },
