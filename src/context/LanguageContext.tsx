@@ -10,10 +10,15 @@ type LanguageContextType = {
 
 const LanguageContext = createContext<LanguageContextType | null>(null)
 
+// English is temporarily disabled site-wide. Flip to true (and the toggle
+// button in Nav.tsx back on) to bring it back — translations are untouched.
+export const ENABLE_ENGLISH = false
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>('no')
 
   useEffect(() => {
+    if (!ENABLE_ENGLISH) return
     const saved = localStorage.getItem('lang') as Lang | null
     if (saved === 'en' || saved === 'no') setLang(saved)
   }, [])
@@ -23,6 +28,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, [lang])
 
   const toggle = () => {
+    if (!ENABLE_ENGLISH) return
     setLang(prev => {
       const next = prev === 'no' ? 'en' : 'no'
       localStorage.setItem('lang', next)

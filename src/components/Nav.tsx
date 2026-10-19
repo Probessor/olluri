@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { useLanguage } from '@/context/LanguageContext'
+import { useLanguage, ENABLE_ENGLISH } from '@/context/LanguageContext'
 
 export default function Nav() {
   const pathname = usePathname()
@@ -44,24 +44,26 @@ export default function Nav() {
           </li>
         </ul>
         <div className="nav-cta">
-          <button
-            onClick={toggle}
-            aria-label="Toggle language"
-            style={{
-              background: 'none',
-              border: '1px solid rgba(255,255,255,0.5)',
-              borderRadius: 6,
-              padding: '6px 12px',
-              cursor: 'pointer',
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              letterSpacing: '0.08em',
-              color: 'rgba(255,255,255,0.85)',
-              lineHeight: 1,
-            }}
-          >
-            {lang === 'no' ? 'EN' : 'NO'}
-          </button>
+          {ENABLE_ENGLISH && (
+            <button
+              onClick={toggle}
+              aria-label="Toggle language"
+              style={{
+                background: 'none',
+                border: '1px solid rgba(255,255,255,0.5)',
+                borderRadius: 6,
+                padding: '6px 12px',
+                cursor: 'pointer',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                letterSpacing: '0.08em',
+                color: 'rgba(255,255,255,0.85)',
+                lineHeight: 1,
+              }}
+            >
+              {lang === 'no' ? 'EN' : 'NO'}
+            </button>
+          )}
           <Link href="/contact" className="btn btn-outline-white" style={{ padding: '9px 20px' }}>{t.nav.workWithMe}</Link>
         </div>
         <button
