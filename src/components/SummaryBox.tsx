@@ -21,11 +21,8 @@ export default function SummaryBox({ points }: { points: SummaryPoint[] }) {
       <h3 style={{ fontSize: '1.1rem', marginBottom: 14 }}>{b.summaryTitle}</h3>
       <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
         {visible.map((point, i) => (
-          <li key={i} style={{ display: 'flex', gap: 10, alignItems: 'baseline' }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--teal)', flexShrink: 0, transform: 'translateY(-2px)' }} />
-            <span style={{ color: 'var(--text-mid)', lineHeight: 1.6 }}>
-              <strong style={{ color: 'var(--text)' }}>{point.label}:</strong> {point.text}
-            </span>
+          <li key={i} style={{ color: 'var(--text-mid)', lineHeight: 1.6 }}>
+            <strong style={{ color: 'var(--text)' }}>{point.label}:</strong> {point.text}
           </li>
         ))}
       </ul>

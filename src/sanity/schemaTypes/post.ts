@@ -46,7 +46,7 @@ export default defineType({
           prepare: ({ label, text }) => ({ title: label, subtitle: text }),
         },
       }],
-      description: 'Short fact list for the case, shown as a collapsible "Kortversjonen" box at the top of the post (label in bold, then description). Leave empty to hide it.',
+      description: 'Short fact list for the case, shown as a collapsible "Caset oppsummert" box at the top of the post (label in bold, then description). Leave empty to hide it.',
     }),
     defineField({ name: 'publishedAt', title: 'Published At', type: 'datetime' }),
     defineField({ name: 'readTime', title: 'Read Time (e.g. "5 min read")', type: 'string' }),
