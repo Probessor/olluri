@@ -103,7 +103,7 @@ export default function Home() {
       )}
 
       {/* Stats */}
-      <section className="section">
+      <section className="section" style={{ background: 'var(--white)' }}>
         <div className="container text-center">
           <span className="label">{h.statsLabel}</span>
           <h2 style={{ marginTop: 8 }}>{h.statsH2}</h2>
