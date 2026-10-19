@@ -66,12 +66,12 @@ const translations = {
       label: 'Om Sidelengs',
       h1Line1: 'Før startups skyter opp i lufta, eller dundrer i bakken, så kryper de ofte sidelengs.',
 
-      lead: 'Les om dem her.',
+      lead: 'Fra innsiden av det norske oppstartsmiljøet.',
       myStory: 'Bakgrunn',
       h2Line1: 'Tett på de som bygger',
       bio1: 'Sidelengs ble til fordi de beste historiene fra norsk næringsliv sjelden kommer fra pressemeldinger. De kommer fra kaffemøter, mislykkede pivots og den rare gnisten som omsider blir til et selskap.',
       bio2: 'Bak Sidelengs står jeg, Bess. De siste ti årene har jeg gründet, bygd, knekt, mentorert, veiledet og utdannet både startups og gründere. Sidelengs er i første omgang tenkt som noe mellom et nyhetssted, blogg og hjemmeside, hvor jeg kan skrive om kule caser, og gi startups enda en mulighet til å dele litt om seg selv.',
-      bio3: 'Nå til dags veileder jeg startups med finansieringsstrategi, forretningsutvikling og søknadsskriving. ',
+      bio3: 'Nå til dags veileder jeg startups med finansieringsstrategi, forretningsutvikling og søknadsskriving. Trenger du hjelp med noe av dette? Ta kontakt.',
       bio4: 'Det skjer mye kult i det norske oppstartsmiljøet, jeg møter mange utrolige folk, og tenkte å dele litt om dem her.',
 
       values: [
