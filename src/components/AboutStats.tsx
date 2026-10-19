@@ -2,15 +2,12 @@ import { client } from '@/sanity/lib/client'
 import { blogStatsQuery } from '@/sanity/lib/queries'
 
 async function fetchStats() {
-  const [{ startupCount, founderCount }, podcasts] = await Promise.all([
-    client.fetch<{ startupCount: number; founderCount: number }>(blogStatsQuery),
-    client.fetch<number>(`count(*[_type == "post" && "podcast" in tags])`),
-  ])
+  const { startupCount, founderCount } = await client.fetch<{ startupCount: number; founderCount: number }>(blogStatsQuery)
 
   return [
     { value: String(startupCount), label: 'Startups omtalt' },
     { value: String(founderCount), label: 'Gründere intervjuet' },
-    { value: String(podcasts), label: 'Podcasts' },
+    { value: '13', label: 'Arbeidsplasser lagd' },
   ]
 }
 
