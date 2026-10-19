@@ -80,6 +80,6 @@ export const productsQuery = groq`
 
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
-    heroTagline, heroBio, stats
+    heroTagline, heroBio, stats, businessStats
   }
 `

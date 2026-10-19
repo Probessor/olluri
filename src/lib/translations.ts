@@ -40,6 +40,10 @@ const translations = {
         { value: '60+', label: 'Gründere intervjuet' },
         { value: '8+', label: 'År i miljøet' },
       ],
+      bizStats: {
+        newRegistrations: ['Nyregistrerte foretak 2026', 'Nyregistrerte foretak tilsvarende periode i fjor', 'Prosentvis endring'],
+        closures: ['Avviklinger av foretak 2026', 'Avviklinger tilsvarende periode 2025', 'Prosentvis endring'],
+      },
       insightsLabel: 'Siste artikler',
       insightsH2: 'Ferske historier',
       insightsLinkLabel: 'Se alle artikler',
@@ -243,6 +247,10 @@ const translations = {
         { value: '60+', label: 'Founders interviewed' },
         { value: '8+', label: 'Years in the scene' },
       ],
+      bizStats: {
+        newRegistrations: ['New company registrations 2026', 'New registrations, same period last year', 'Percentage change'],
+        closures: ['Business closures 2026', 'Closures, same period 2025', 'Percentage change'],
+      },
       insightsLabel: 'Latest articles',
       insightsH2: 'Fresh stories',
       insightsLinkLabel: 'View all articles',
