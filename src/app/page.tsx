@@ -3,27 +3,16 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import { client } from '@/sanity/lib/client'
-import { postsQuery, siteSettingsQuery } from '@/sanity/lib/queries'
+import { postsQuery } from '@/sanity/lib/queries'
 import { BlogCardSmall, type PostData } from '@/components/BlogCard'
 import { useBlogStats } from '@/lib/useBlogStats'
 
 const SHOW_SOCIAL = false
 
-interface BizStatsRow {
-  current?: string
-  previous?: string
-  change?: string
-}
-
-interface SiteSettings {
-  businessStats?: { newRegistrations?: BizStatsRow; closures?: BizStatsRow }
-}
-
 export default function Home() {
   const { t } = useLanguage()
   const h = t.home
   const [posts, setPosts] = useState<PostData[]>([])
-  const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const blogStats = useBlogStats()
   const stats = h.stats.map((s, i) => {
@@ -31,10 +20,6 @@ export default function Home() {
     if (i === 1 && blogStats) return { ...s, value: String(blogStats.founderCount) }
     return s
   })
-
-  const newReg = siteSettings?.businessStats?.newRegistrations
-  const closures = siteSettings?.businessStats?.closures
-  const hasBizStats = !!(newReg?.current || newReg?.previous || newReg?.change || closures?.current || closures?.previous || closures?.change)
 
   const scroll = (dir: 'prev' | 'next') => {
     if (!trackRef.current) return
@@ -45,12 +30,6 @@ export default function Home() {
   useEffect(() => {
     client.fetch(postsQuery)
       .then((data: PostData[]) => { if (data?.length) setPosts(data) })
-      .catch(() => {})
-  }, [])
-
-  useEffect(() => {
-    client.fetch(siteSettingsQuery)
-      .then((data: SiteSettings) => setSiteSettings(data))
       .catch(() => {})
   }, [])
 
@@ -138,31 +117,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Business stats (new registrations / closures) */}
-      {hasBizStats && (
-        <div className="container" style={{ marginBottom: 'var(--gap-lg)' }}>
-          <div style={{ background: 'var(--surface)', borderRadius: 'var(--radius)', padding: 'var(--gap-md)', maxWidth: 900, margin: '0 auto' }}>
-            <div className="grid-3" style={{ gap: 'var(--gap-md)' }}>
-              {[newReg?.current, newReg?.previous, newReg?.change].map((val, i) => (
-                <div key={i} style={{ textAlign: 'center' }}>
-                  <h3 style={{ fontSize: '1.8rem', marginBottom: 4 }}>{val || '—'}</h3>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{h.bizStats.newRegistrations[i]}</p>
-                </div>
-              ))}
-            </div>
-            <div className="divider" style={{ margin: 'var(--gap-md) 0' }} />
-            <div className="grid-3" style={{ gap: 'var(--gap-md)' }}>
-              {[closures?.current, closures?.previous, closures?.change].map((val, i) => (
-                <div key={i} style={{ textAlign: 'center' }}>
-                  <h3 style={{ fontSize: '1.8rem', marginBottom: 4 }}>{val || '—'}</h3>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{h.bizStats.closures[i]}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* CTA */}
       <div className="container">

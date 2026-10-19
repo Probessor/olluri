@@ -19,33 +19,6 @@ export default defineType({
         ],
       }],
     }),
-    defineField({
-      name: 'businessStats',
-      title: 'Næringsstatistikk (vises som egen boks på forsiden)',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'newRegistrations',
-          title: 'Rad 1 — Nyregistrerte foretak',
-          type: 'object',
-          fields: [
-            defineField({ name: 'current', title: 'Nyregistrerte foretak 2026', type: 'string' }),
-            defineField({ name: 'previous', title: 'Nyregistrerte foretak tilsvarende periode i fjor', type: 'string' }),
-            defineField({ name: 'change', title: 'Prosentvis endring', type: 'string' }),
-          ],
-        }),
-        defineField({
-          name: 'closures',
-          title: 'Rad 2 — Avviklinger av foretak',
-          type: 'object',
-          fields: [
-            defineField({ name: 'current', title: 'Avviklinger av foretak 2026', type: 'string' }),
-            defineField({ name: 'previous', title: 'Avviklinger tilsvarende periode 2025', type: 'string' }),
-            defineField({ name: 'change', title: 'Prosentvis endring', type: 'string' }),
-          ],
-        }),
-      ],
-    }),
     defineField({ name: 'aboutBio', title: 'About Page Bio', type: 'array', of: [{ type: 'block' }] }),
     defineField({ name: 'contactEmail', title: 'Contact Email', type: 'string' }),
     defineField({ name: 'linkedinUrl', title: 'LinkedIn URL', type: 'url' }),
