@@ -2,7 +2,12 @@
 import { useState } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 
-export default function SummaryBox({ points }: { points: string[] }) {
+interface SummaryPoint {
+  label: string
+  text: string
+}
+
+export default function SummaryBox({ points }: { points: SummaryPoint[] }) {
   const { t } = useLanguage()
   const b = t.blog
   const [open, setOpen] = useState(false)
@@ -18,7 +23,9 @@ export default function SummaryBox({ points }: { points: string[] }) {
         {visible.map((point, i) => (
           <li key={i} style={{ display: 'flex', gap: 10, alignItems: 'baseline' }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--teal)', flexShrink: 0, transform: 'translateY(-2px)' }} />
-            <span style={{ color: 'var(--text-mid)', lineHeight: 1.6 }}>{point}</span>
+            <span style={{ color: 'var(--text-mid)', lineHeight: 1.6 }}>
+              <strong style={{ color: 'var(--text)' }}>{point.label}:</strong> {point.text}
+            </span>
           </li>
         ))}
       </ul>

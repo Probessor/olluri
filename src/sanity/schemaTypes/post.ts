@@ -32,10 +32,21 @@ export default defineType({
     defineField({ name: 'excerpt', title: 'Excerpt', type: 'text', rows: 3 }),
     defineField({
       name: 'summaryPoints',
-      title: 'Kortversjon (bullet points)',
+      title: 'Kortversjon (fakta)',
       type: 'array',
-      of: [{ type: 'string' }],
-      description: 'Short bullet-point summary of the case, shown as a collapsible "Kortversjonen" box at the top of the post. Leave empty to hide it.',
+      of: [{
+        type: 'object',
+        name: 'summaryPoint',
+        fields: [
+          defineField({ name: 'label', title: 'Kategori (f.eks. Navn, Omsetning, Målgruppe, USP)', type: 'string', validation: r => r.required() }),
+          defineField({ name: 'text', title: 'Beskrivelse', type: 'string', validation: r => r.required() }),
+        ],
+        preview: {
+          select: { label: 'label', text: 'text' },
+          prepare: ({ label, text }) => ({ title: label, subtitle: text }),
+        },
+      }],
+      description: 'Short fact list for the case, shown as a collapsible "Kortversjonen" box at the top of the post (label in bold, then description). Leave empty to hide it.',
     }),
     defineField({ name: 'publishedAt', title: 'Published At', type: 'datetime' }),
     defineField({ name: 'readTime', title: 'Read Time (e.g. "5 min read")', type: 'string' }),
